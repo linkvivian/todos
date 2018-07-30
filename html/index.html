@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todoList</title>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/layout.css">
+</head>
+<body>
+<div id="header">todos</div>
+<div id="add-todo">
+    <div id="add-todo-item" class="add-todo-item">
+        <span>
+            <svg class="icon down" aria-hidden="true">
+                <use xlink:href="#icon-down"></use>
+            </svg>
+        </span>
+        <input type="text" placeholder="What needs to be done?" autofocus>
+    </div>
+
+    <div id="editor" style="visibility: hidden">
+          <div class="left"><span><b></b>    items left</span></div>
+           <div class="all"><span>All</span></div>
+           <div class="active"><span>Active</span></div>
+           <div class="complete"><span>Complete</span></div>
+          <div class="clear"><span>Clear completed</span></div>
+   </div>
+</div>
+<script src="../js/iconfont.js"></script>
+<script src="../js/index.js"></script>
+</body>
+</html>
