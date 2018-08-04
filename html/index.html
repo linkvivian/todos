@@ -8,7 +8,65 @@
     <link rel="stylesheet" href="../css/layout.css">
 </head>
 <body>
+<div id="login-register" style="display: none">
+    <div id="login">
+        <span class="exit">x</span>
+
+        <div id="loginView">
+            <ul>
+                <li class="lr"><span class="loginItem" style=" border-bottom: 2px solid rgba(0,0,0,.5);">登录</span><span class="register">注册</span></li>
+                <li><input type="text" id="set-username" placeholder="请输入用户名"></li>
+                <li><input type="password" id="set-password" placeholder="请输入密码"></li>
+            </ul>
+
+            <div id="login-submit">LOGIN</div>
+            <div class="info"></div>
+        </div>
+
+        <div id="registerView" style="display: none">
+            <ul>
+                <li class="lr"><span class="loginItem1">登录</span><span class="register1" style=" border-bottom: 2px solid rgba(0,0,0,.5);">注册</span></li>
+                <li><input type="text" id="username" placeholder="请输入用户名"></li>
+                <li><input type="password" id="password" placeholder="请输入密码"></li>
+            </ul>
+
+            <div id="register-submit">REGISTER</div>
+            <div class="rginfo"></div>
+        </div>
+
+        <div class="tick-content">
+            <div class="tick-word"><span class="tickshift tick-shift">✔</span>自动登录</div>
+            <div class="forget-active">忘记密码</div>
+        </div>
+    </div>
+</div>
+
+<!--换肤-->
+<div id="container">
+    <div id="change-skin">
+        <span>换肤</span>
+    </div>
+
+    <ul class="images">
+        <li><img src="../images/timg%5B1%5D.jpg" alt=""></li>
+        <li><img src="../images/timg%5B2%5D.jpg" alt=""></li>
+        <li><img src="../images/timg%5B3%5D.jpg" alt=""></li>
+        <li><img src="../images/timg%5B4%5D.jpg" alt=""></li>
+    </ul>
+</div>
+
+<ul id="lorg">
+    <a href="javaScript:openLogin()">登录</a>
+    <a href="javaScript:openRegister()">注册</a>
+</ul >
+
+<ul id="exit-logout" style="display: none">
+    <a href="javaScript:exitLogin()">退出登录</a>
+    <a href="javaScript:logOut()">注销</a>
+</ul>
+
 <div id="header">todos</div>
+
 <div id="add-todo">
     <div id="add-todo-item" class="add-todo-item">
         <span>
@@ -19,15 +77,20 @@
         <input type="text" placeholder="What needs to be done?" autofocus>
     </div>
 
-    <div id="editor" style="visibility: hidden">
-          <div class="left"><span><b></b>    items left</span></div>
-           <div class="all"><span>All</span></div>
-           <div class="active"><span>Active</span></div>
-           <div class="complete"><span>Complete</span></div>
-          <div class="clear"><span>Clear completed</span></div>
-   </div>
+    <div id="dragContainer">
+        <div id="editor" draggable="false" style="visibility: hidden">
+              <div class="left"><span><b></b>    items left</span></div>
+               <div class="all"><span>All</span></div>
+               <div class="active"><span>Active</span></div>
+               <div class="complete"><span>Complete</span></div>
+              <div class="clear"><span>Clear completed</span></div>
+       </div>
+    </div>
 </div>
+
+
 <script src="../js/iconfont.js"></script>
 <script src="../js/index.js"></script>
+
 </body>
 </html>
