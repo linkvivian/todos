@@ -5,7 +5,7 @@
     <title>todoList</title>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
     <link rel="stylesheet" href="../css/iconfont.css">
-    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/jq-layout.css">
 </head>
 <body>
 <div id="login-register" style="display: none">
@@ -56,43 +56,43 @@
 </div>
 
 <ul id="lorg">
-    <a href="javaScript:openLogin()">登录</a>
-    <a href="javaScript:openRegister()">注册</a>
+    <a onclick="openLogin()">登录</a>
+    <a onclick="openRegister()">注册</a>
 </ul >
 
 <ul id="exit-logout" style="display: none">
-    <a href="javaScript:exitLogin()">退出登录</a>
-    <a href="javaScript:logOut()">注销</a>
+    <a onclick="exitLogin()">退出登录</a>
+    <a onclick="logOut()">注销</a>
 </ul>
 
 <div id="header">todos</div>
 
 <div id="todoContainer">
-    <div id="add-todo">
-        <div id="add-todo-item" class="add-todo-item">
+<div id="add-todo">
+    <div id="add-todo-item" class="add-todo-item">
         <span>
-            <svg class="icon down" aria-hidden="true">
+            <svg  id="selectAll" class="icon down" aria-hidden="true">
                 <use xlink:href="#icon-down"></use>
             </svg>
         </span>
-            <input type="text" placeholder="What needs to be done?" autofocus>
-        </div>
+        <input type="text" placeholder="What needs to be done?" autofocus>
+    </div>
 
-        <div id="dragContainer">
-            <div id="editor" draggable="false" style="visibility: hidden">
-                <div class="left"><span><b></b>    items left</span></div>
-                <div class="all"><span>All</span></div>
-                <div class="active"><span>Active</span></div>
-                <div class="complete"><span>Complete</span></div>
-                <div class="clear"><span>Clear completed</span></div>
-            </div>
+    <div id="dragContainer">
+        <div id="editor" draggable="false" style="display: none">
+            <div class="left"><span><b></b>    items left</span></div>
+            <div class="all"><span>All</span></div>
+            <div class="active"><span>Active</span></div>
+            <div class="complete"><span>Complete</span></div>
+            <div class="clear"><span>Clear completed</span></div>
         </div>
     </div>
 </div>
+</div>
 
-<script src="../js/index.js"></script>
+<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
 <script src="../js/iconfont.js"></script>
-
+<script src="../js/jQ.js"></script>
 
 </body>
 </html>

@@ -58,7 +58,6 @@ body{
 }
 .down{
     opacity: 0.2;
-    cursor: pointer;
 }
 .add-item,.complete-item,.active-item{
     width: 500px;
@@ -96,10 +95,10 @@ body{
     width: 500px;
     background-color: rgba(255, 255, 255, 0.6);
     box-shadow:0 1px 1px rgba(0, 0, 0, 0.2),
-                0 8px 0 -3px #f6f6f6,
-                0 9px 1px -3px rgba(0, 0, 0, 0.2),
-                0 16px 0 -6px #f6f6f6,
-                0 17px 2px -6px rgba(0, 0, 0, 0.2);
+    0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2),
+    0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 .check{
     height: 1.6em;
@@ -149,6 +148,10 @@ body{
     border:1px solid rgba(0, 0, 0, 0.35);
     border-radius: 3px;
 }
+.box{
+    border:1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 3px;
+}
 .complete:hover span{
     border:1px solid rgba(0, 0, 0, 0.35);
     border-radius: 3px;
@@ -167,15 +170,13 @@ body{
 }
 #editor .clear{
     flex-grow: 7;
-    visibility: hidden;
+    visibility: hidden
 }
 #editor b{
     font-weight: bold;
     font-size: 1.2em;
 }
-.check-shift{
-    display: block;
-}
+
 .text-shift{
     text-decoration: line-through;
     opacity: 0.3;
@@ -200,15 +201,12 @@ body{
     cursor: pointer;
     text-decoration: underline;
 }
-.selectAll-shift{
-    opacity: 0.8;
-}
 #dragContainer{
     width: 500px;
     height: auto;
 }
 .clear-shift{
-    visibility: hidden;
+    display: none;
 }
 
 
@@ -271,7 +269,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-     margin: 200px auto;
+    margin: 200px auto;
 }
 #login ul{
     list-style: none;
@@ -362,7 +360,7 @@ body{
     text-decoration: underline;
 }
 .tick-word .tick-shift{
- color: transparent;
+    color: transparent;
 }
 .exit:hover{
     cursor: pointer;

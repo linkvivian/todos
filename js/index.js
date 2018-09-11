@@ -1,9 +1,10 @@
+
 window.onbeforeunload = function () {
   (function postData() {
     var req = new XMLHttpRequest();
     req.open("POST", 'http://localhost:3000/customers', false);
     req.setRequestHeader("Content-Type", "application/json");
-    var a = todo.innerHTML;
+    var a = todoContainer.innerHTML;
     a = {
       'id': id,
       'content': a
@@ -13,7 +14,8 @@ window.onbeforeunload = function () {
   })();
 };
 
-var todo = document.getElementById("add-todo"),
+var todoContainer = document.getElementById("todoContainer"),
+    todo = document.getElementById("add-todo"),
     newTodo = document.querySelector("#add-todo-item input"),
     selectAll = document.querySelector(".down"),
     editor = document.getElementById('editor'),
@@ -23,20 +25,19 @@ var todo = document.getElementById("add-todo"),
     addItems,
     completeItems,
     allItems,
-    k = 0;
+    h = 0;
 
 //通用计数
 function leftSum() {
   allItems = document.querySelectorAll('.add-item');
   for (var i = 0; i < allItems.length; i++) {
     if (allItems[i].className == 'add-item') {
-      k++;
+      h++;
     }
   }
-  leftItems.innerHTML = k;
-  k = 0;
+  leftItems.innerHTML = h;
+  h = 0;
 }
-
 
   newTodo.addEventListener('keypress',fistAdd,false);
     function fistAdd(event) {
@@ -80,11 +81,28 @@ function leftSum() {
     }
   }
 
-
-    //删除
+//删除和勾选
   todo.addEventListener('click', function (event) {
-    if(event.target.classList == 'use-icon2' || event.target.classList == 'icon delete') {
+    if(event.target.classList == 'use-icon1' || event.target.classList == 'icon eglass-circle') {
+      // alert(event.target.classList)
+      if (event.target.classList == 'icon eglass-circle') {
+        event.target.children[1].classList.toggle('check-shift');
+        event.target.parentNode.nextElementSibling.classList.toggle('text-shift');
+        event.target.parentNode.parentNode.classList.toggle('complete-item');
+        if(completeBox.style.borderWidth == '1px') {
+          event.target.parentNode.parentNode.style.display = 'none';
+        }
+      } else {
+        event.target.children[0].children[1].classList.toggle('check-shift');
+        event.target.nextElementSibling.classList.toggle('text-shift');
+        event.target.parentNode.classList.toggle('complete-item');
+        if(completeBox.style.borderWidth == '1px') {
+          event.target.parentNode.style.display = 'none';
+        }
+      }
+    }
 
+    if(event.target.classList == 'use-icon2' || event.target.classList == 'icon delete') {
       if( event.target.classList == 'use-icon2') {
         event.target.parentNode.style.display = 'none';
         event.target.parentNode.className = '';
@@ -94,51 +112,22 @@ function leftSum() {
       }
       leftSum();
     }
-  },false);
 
-//勾选
-todo.addEventListener('click', function checkItem(event) {
-  if(event.target.classList == 'use-icon1' || event.target.classList == 'icon eglass-circle') {
-    // alert(event.target.classList)
-    if (event.target.classList == 'icon eglass-circle') {
-      event.target.children[1].classList.toggle('check-shift');
-      event.target.parentNode.nextElementSibling.classList.toggle('text-shift');
-      event.target.parentNode.parentNode.classList.toggle('complete-item');
-      if(completeBox.style.borderWidth == '1px') {
-        event.target.parentNode.parentNode.style.display = 'none';
-      }
-    } else {
-      event.target.children[0].children[1].classList.toggle('check-shift');
-      event.target.nextElementSibling.classList.toggle('text-shift');
-      event.target.parentNode.classList.toggle('complete-item');
-      if(completeBox.style.borderWidth == '1px') {
-        event.target.parentNode.style.display = 'none';
-      }
+    completeItems = document.querySelectorAll('.complete-item');
+    if(completeItems.length > 0){
+      clear.style.visibility = 'visible';
     }
-  }
-  completeItems = document.querySelectorAll('.complete-item');
-  if(completeItems.length > 0){
-    clear.style.visibility = 'visible';
-  }
 
-  leftSum();
+    leftSum();
 
-  if(allBox.style.borderWidth == '1px' && leftItems.innerText == 0) {
-    selectAll.classList.add('selectAll-shift');
-  }else if(allBox.style.borderWidth == '1px' && leftItems.innerText != 0){
-    selectAll.classList = 'icon down';
-  }
+    if(allBox.style.borderWidth == '1px' && leftItems.innerText == 0) {
+      selectAll.classList.add('selectAll-shift');
+    }else if(allBox.style.borderWidth == '1px' && leftItems.innerText != 0){
+      selectAll.classList = 'icon down';
+    }
 
-  allItems = document.querySelectorAll('.add-item');
-  if(allItems.length == 0){
-    clear.style.visibility = "hidden";
-    selectAll.parentNode.className = 'icon down';
-    selectAll.style.visibility = 'hidden';
-    editor.style.visibility = "hidden";
-    newTodo.value = '';
-  }
-  // console.log(event.target.children[1].className)
-}, false);
+
+  },false);
 
 
 var active = document.querySelector('.active'),
@@ -219,7 +208,31 @@ var active = document.querySelector('.active'),
       completeItems[i].style.display = 'none';
       completeItems[i].className = '';
     }
-
+    allItems = document.querySelectorAll('.add-item');
+    if(allItems.length == 0){
+      todoContainer.innerHTML = '<div id="add-todo">\n' +
+        '        <div id="add-todo-item" class="add-todo-item">\n' +
+        '        <span>\n' +
+        '            <svg class="icon down" aria-hidden="true">\n' +
+        '                <use xlink:href="#icon-down"></use>\n' +
+        '            </svg>\n' +
+        '        </span>\n' +
+        '            <input type="text" placeholder="What needs to be done?" autofocus>\n' +
+        '        </div>\n' +
+        '\n' +
+        '        <div id="dragContainer">\n' +
+        '            <div id="editor" draggable="false" style="visibility: hidden">\n' +
+        '                <div class="left"><span><b></b>    items left</span></div>\n' +
+        '                <div class="all"><span>All</span></div>\n' +
+        '                <div class="active"><span>Active</span></div>\n' +
+        '                <div class="complete"><span>Complete</span></div>\n' +
+        '                <div class="clear"><span>Clear completed</span></div>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '    </div>';
+      reloadAbleJSFn("../js/iconfont.js");
+      reloadAbleJSFn("../js/index.js");
+    }
   },false);
 
   //全选或收起操作
@@ -386,10 +399,10 @@ changes.addEventListener('click',function (e) {
       rgstErrTips.innerHTML = "用户名不能为空";
     } else if(rgPass.value == '') {
       rgstErrTips.innerHTML = "密码不能为空";
-    }else if(!passwordPattern.test(rgPass.value)) {
-      rgstErrTips.innerHTML = "请输入密码为6到16位字符（含数字、字母、下划线）"
-    }else if(localStorage.getItem(rgUser.value)) {
-      // alert(111);
+    // }else if(!passwordPattern.test(rgPass.value)) {
+    //   rgstErrTips.innerHTML = "请输入密码为6到16位字符（含数字、字母、下划线）"
+    }
+    else if(localStorage.getItem(rgUser.value)) {
       rgstErrTips.innerHTML = '该用户名已存在！';
     } else {
       rgstErrTips.innerHTML = '注册成功！';
@@ -404,13 +417,13 @@ changes.addEventListener('click',function (e) {
 
 
  //local storage当地缓存(永久缓存，刷新页面不会丢失)
-  var k = 0, j = 0, d = 0, id, currentID;
+  var h = 0, j = 0, d = 0, id;
 
   rs.addEventListener('click', function () {
     if(rgstErrTips.innerHTML == '注册成功！') {
       var username = rgUser.value;
       var password = rgPass.value;
-      localStorage.setItem(username, k++);
+      localStorage.setItem(username, h++);
       localStorage.setItem(password, j++);
         id = username;
     }
@@ -451,9 +464,9 @@ changes.addEventListener('click',function (e) {
                 }
               }
               var content = json[d].content;
-              currentID = json[d].id;
+              id = json[d].id;
               if (content != null) {
-                todo.innerHTML = content;
+                todoContainer.innerHTML = content;
                 reloadAbleJSFn("../js/iconfont.js");
                 reloadAbleJSFn("../js/index.js");
               }
@@ -481,7 +494,6 @@ changes.addEventListener('click',function (e) {
       }
   }, false);
 
-
 // 登陆注册的操作
   function openLogin() {
     lr.style.display = 'block';
@@ -502,11 +514,12 @@ function exitLogin() {
     var req = new XMLHttpRequest();
     req.open("POST",'http://localhost:3000/customers',true);
     req.setRequestHeader("Content-Type","application/json");
-    var a = todo.innerHTML;
+    var a = todoContainer.innerHTML;
     a = {
       'id': id,
       'content': a
     };
+    console.log(a)
     var b = JSON.stringify(a);
     req.send(b);
   })();
@@ -517,51 +530,33 @@ function exitLogin() {
   rgPass.value = '';
   rgstErrTips.innerHTML = '';
 
-  todo.innerHTML = ' <div id="add-todo-item" class="add-todo-item">\n' +
-    '        <span>\n' +
-    '            <svg class="icon down" aria-hidden="true">\n' +
-    '                <use xlink:href="#icon-down"></use>\n' +
-    '            </svg>\n' +
-    '        </span>\n' +
-    '        <input type="text" placeholder="What needs to be done?" autofocus>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div id="dragContainer">\n' +
-    '        <div id="editor" draggable="false" style="visibility: hidden">\n' +
-    '              <div class="left"><span><b></b>    items left</span></div>\n' +
-    '               <div class="all"><span>All</span></div>\n' +
-    '               <div class="active"><span>Active</span></div>\n' +
-    '               <div class="complete"><span>Complete</span></div>\n' +
-    '              <div class="clear"><span>Clear completed</span></div>\n' +
-    '       </div>\n' +
-    '    </div>';
-  reloadAbleJSFn("../js/iconfont.js");
-  reloadAbleJSFn("../js/index.js");
 }
 
 function logOut() {
   if(confirm("您确定要注销当前账户吗？")) {
-    localStorage.removeItem(currentID);
-    currentID = null;
+    localStorage.removeItem(id);
+    id = null;
     var todo = document.getElementById("add-todo"),
       lr = document.getElementById('login-register');
-    todo.innerHTML = ' <div id="add-todo-item" class="add-todo-item">\n' +
+    todoContainer.innerHTML = '<div id="add-todo">\n' +
+      '        <div id="add-todo-item" class="add-todo-item">\n' +
       '        <span>\n' +
       '            <svg class="icon down" aria-hidden="true">\n' +
       '                <use xlink:href="#icon-down"></use>\n' +
       '            </svg>\n' +
       '        </span>\n' +
-      '        <input type="text" placeholder="What needs to be done?" autofocus>\n' +
-      '    </div>\n' +
+      '            <input type="text" placeholder="What needs to be done?" autofocus>\n' +
+      '        </div>\n' +
       '\n' +
-      '    <div id="dragContainer">\n' +
-      '        <div id="editor" draggable="false" style="visibility: hidden">\n' +
-      '              <div class="left"><span><b></b>    items left</span></div>\n' +
-      '               <div class="all"><span>All</span></div>\n' +
-      '               <div class="active"><span>Active</span></div>\n' +
-      '               <div class="complete"><span>Complete</span></div>\n' +
-      '              <div class="clear"><span>Clear completed</span></div>\n' +
-      '       </div>\n' +
+      '        <div id="dragContainer">\n' +
+      '            <div id="editor" draggable="false" style="visibility: hidden">\n' +
+      '                <div class="left"><span><b></b>    items left</span></div>\n' +
+      '                <div class="all"><span>All</span></div>\n' +
+      '                <div class="active"><span>Active</span></div>\n' +
+      '                <div class="complete"><span>Complete</span></div>\n' +
+      '                <div class="clear"><span>Clear completed</span></div>\n' +
+      '            </div>\n' +
+      '        </div>\n' +
       '    </div>';
     reloadAbleJSFn("../js/iconfont.js");
     reloadAbleJSFn("../js/index.js");
@@ -576,3 +571,6 @@ function reloadAbleJSFn(newJS)
   scriptObj.type = "text/javascript";
   document.getElementsByTagName("head")[0].appendChild(scriptObj);
 }
+
+
+
